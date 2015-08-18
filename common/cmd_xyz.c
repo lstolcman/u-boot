@@ -1,4 +1,5 @@
 #include <common.h> 
+<<<<<<< HEAD
 #include <command.h> 
 #include<net.h>
 
@@ -56,3 +57,19 @@ U_BOOT_CMD(
         "dgprint takes no arguments", 
         "this is just to test a function" 
 ); 
+=======
+ #include <command.h> 
+
+
+int do_dgprint(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[]) 
+{ 
+        printf("Hi this is a test\n"); 
+        return 0; 
+} 
+
+U_BOOT_CMD( 
+        dgprint,        1,      1,      do_dgprint, 
+        "dgprint takes no arguments", 
+        "this is just to test a function" 
+); 
+>>>>>>> ac7623b91462e9ba1990554d34e36838600783ed
