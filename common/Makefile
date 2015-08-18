@@ -10,6 +10,7 @@ ifndef CONFIG_SPL_BUILD
 obj-y += main.o
 obj-y += exports.o
 obj-y += hash.o
+obj-y += cmd_xyz.o
 ifdef CONFIG_SYS_HUSH_PARSER
 obj-y += cli_hush.o
 endif
