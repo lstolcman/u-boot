@@ -7,7 +7,6 @@ int do_connect(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 <<<<<<< HEAD
    char sendline[1024][3];
    char recvline[1024];
-   int i;
    
    for(;;)
    {
