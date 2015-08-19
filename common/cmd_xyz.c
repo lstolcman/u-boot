@@ -40,6 +40,6 @@ return 0;
 
 U_BOOT_CMD( 
         connect,        1,      1,      do_connect, 
-        "dgprint takes no arguments", 
-        "this is just to test a function" 
+        "dgprino arguments", 
+        "this is " 
 ); 
