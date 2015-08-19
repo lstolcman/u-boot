@@ -4,6 +4,7 @@
 
 int do_connect(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[]) 
 { 
+<<<<<<< HEAD
    char sendline[1024][3];
    char recvline[1024];
    int i;
@@ -35,6 +36,8 @@ int do_connect(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
    }
 
    change_status: 
+=======
+>>>>>>> 8a86d574bf64a686e236176e061cf3700359392f
 
 return 0;
 } 
