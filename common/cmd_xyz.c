@@ -5,6 +5,7 @@
 int do_connect(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[]) 
 { 
    char sendline[1024][3];
+   char recvline[1024];
    int i;
    
    for(;;)
@@ -12,14 +13,14 @@ int do_connect(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
       switch((int)recvline)
         {
 	case 4:
-	sendline[0][0]= 0x02
-	sendline[0][1]= 0x00
+	sendline[0][0]= 0x02;
+	sendline[0][1]= 0x00;
 	break;
 
         case 3:
-	sendline[0][0]= 0x01
-	sendline[0][1]= 0x01
-        sendline[0][2]= 0x02
+	sendline[0][0]= 0x01;
+	sendline[0][1]= 0x01;
+        sendline[0][2]= 0x02;
 	goto change_status;
 	break;
 			
