@@ -86,4 +86,6 @@
 /* Now bring in the rest of the common code. */
 #include <configs/ti_armv7_common.h>
 
+#define CONFIG_CMD_STATUS
+
 #endif	/* __CONFIG_TI_OMAP3_COMMON_H__ */

@@ -499,7 +499,7 @@ extern int		net_restart_wrap;	/* Tried all network devices */
 
 enum proto_t {
 	BOOTP, RARP, ARP, TFTPGET, DHCP, PING, DNS, NFS, CDP, NETCONS, SNTP,
-	TFTPSRV, TFTPPUT, LINKLOCAL
+	TFTPSRV, TFTPPUT, LINKLOCAL, STATUS
 };
 
 extern char	net_boot_file_name[128];/* Boot File name */
@@ -536,6 +536,10 @@ static inline int is_cdp_packet(const uchar *ethaddr)
 #if defined(CONFIG_CMD_SNTP)
 extern struct in_addr	net_ntp_server;		/* the ip address to NTP */
 extern int net_ntp_time_offset;			/* offset time from UTC */
+#endif
+
+#if defined(CONFIG_CMD_STATUS)
+extern struct in_addr	net_status_master_board_ip;	/* the ip address of master board */
 #endif
 
 #if defined(CONFIG_MCAST_TFTP)

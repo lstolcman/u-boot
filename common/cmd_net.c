@@ -369,6 +369,36 @@ U_BOOT_CMD(
 );
 #endif
 
+#if defined(CONFIG_CMD_STATUS)
+int do_status(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
+{
+	char *toff;
+
+	if (argc != 2)
+		return CMD_RET_FAILURE;
+
+	net_status_master_board_ip = string_to_ip(argv[1]);
+	if (net_status_master_board_ip.s_addr == 0) {
+		printf("Bad master board IP address\n");
+		return CMD_RET_FAILURE;
+	}
+
+	if (net_loop(STATUS) < 0) {
+		printf("Sending STATUS failed: host %pI4 not responding\n",
+		       &net_status_master_board_ip);
+		return CMD_RET_FAILURE;
+	}
+
+	return CMD_RET_SUCCESS;
+}
+
+U_BOOT_CMD(
+	status,	2,	1,	do_status,
+	"send STATUS to master board",
+	"<master ip>"
+);
+#endif
+
 #if defined(CONFIG_CMD_DNS)
 int do_dns(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 {

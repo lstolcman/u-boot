@@ -105,6 +105,9 @@
 #if defined(CONFIG_CMD_SNTP)
 #include "sntp.h"
 #endif
+#if defined(CONFIG_CMD_STATUS)
+#include "status.h"
+#endif
 #include "tftp.h"
 
 DECLARE_GLOBAL_DATA_PTR;
@@ -175,6 +178,11 @@ u32 net_boot_file_expected_size_in_blocks;
 struct in_addr	net_ntp_server;
 /* offset time from UTC */
 int		net_ntp_time_offset;
+#endif
+
+#if defined(CONFIG_CMD_STATUS)
+/* master board IP address */
+struct in_addr	net_status_master_board_ip;
 #endif
 
 static uchar net_pkt_buf[(PKTBUFSRX+1) * PKTSIZE_ALIGN + PKTALIGN];
@@ -496,6 +504,11 @@ restart:
 #if defined(CONFIG_CMD_SNTP)
 		case SNTP:
 			sntp_start();
+			break;
+#endif
+#if defined(CONFIG_CMD_STATUS)
+		case STATUS:
+			status_start();
 			break;
 #endif
 #if defined(CONFIG_CMD_DNS)
@@ -1302,6 +1315,14 @@ static int net_check_prereq(enum proto_t protocol)
 		}
 		goto common;
 #endif
+#if defined(CONFIG_CMD_STATUS)
+	case STATUS:
+		if (net_status_master_board_ip.s_addr == 0) {
+			puts("*** ERROR: master board IP address not given\n");
+			return 1;
+		}
+		goto common;
+#endif
 #if defined(CONFIG_CMD_DNS)
 	case DNS:
 		if (net_dns_server.s_addr == 0) {
@@ -1321,7 +1342,7 @@ static int net_check_prereq(enum proto_t protocol)
 			return 1;
 		}
 #if	defined(CONFIG_CMD_PING) || defined(CONFIG_CMD_SNTP) || \
-	defined(CONFIG_CMD_DNS)
+	defined(CONFIG_CMD_DNS) || defined(CONFIG_CMD_STATUS)
 common:
 #endif
 		/* Fall through */
@@ -1488,6 +1509,7 @@ void copy_filename(char *dst, const char *src, int size)
 
 #if	defined(CONFIG_CMD_NFS)		|| \
 	defined(CONFIG_CMD_SNTP)	|| \
+	defined(CONFIG_CMD_STATUS)	|| \
 	defined(CONFIG_CMD_DNS)
 /*
  * make port a little random (1024-17407)
