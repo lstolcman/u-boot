@@ -1,7 +1,5 @@
 /*
- * STATUS support driver
- *
- * Masami Komiya <mkomiya@sonare.it> 2005
+ * Lukasz Stolcman <lukasz.stolcman@tieto.com> 2015
  *
  */
 
@@ -17,12 +15,8 @@ static int status_our_port;
 
 static void status_send(void)
 {
-	printf(" == %s ==\n", __func__);
-	printf(" = status_send  =\n");
 	struct status_pkt_t pkt;
 	int pktlen = sizeof(struct status_pkt_t);
-
-	debug("%s\n", __func__);
 
 	memset(&pkt, 0, sizeof(pkt));
 
@@ -41,9 +35,6 @@ static void status_send(void)
 
 static void status_timeout_handler(void)
 {
-	printf(" == %s ==\n", __func__);
-	printf(" = status_timeout_handler  =\n");
-	puts("Timeout\n");
 	net_set_state(NETLOOP_FAIL);
 	return;
 }
@@ -51,13 +42,7 @@ static void status_timeout_handler(void)
 static void status_handler(uchar *pkt, unsigned dest, struct in_addr sip,
 		unsigned src, unsigned len)
 {
-	debug("%s\n", __func__);
-	printf(" == %s ==\n", __func__);
-	printf(" = status_handler  =\n");
-
-
 	struct status_response_t *rpkt = (struct status_response_t *)pkt;
-
 
 	printf("dest=%i\nin_addr=%d\nsrc=%d\nlen=%d\n", dest, sip, src, len);
 	if (dest != status_our_port)
@@ -71,8 +56,6 @@ static void status_handler(uchar *pkt, unsigned dest, struct in_addr sip,
 void status_start(void)
 {
 	debug("%s\n", __func__);
-	printf(" == %s ==\n", __func__);
-	printf(" = status_start  =\n");
 
 	net_set_timeout_handler(STATUS_TIMEOUT, status_timeout_handler);
 	net_set_udp_handler(status_handler);
