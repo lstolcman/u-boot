@@ -372,10 +372,9 @@ U_BOOT_CMD(
 #if defined(CONFIG_CMD_STATUS)
 int do_status(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 {
-	char *toff;
 
 	if (argc != 2)
-		return CMD_RET_USAGE;
+		return CMD_RET_FAILURE;
 
 	net_status_master_board_ip = string_to_ip(argv[1]);
 	if (net_status_master_board_ip.s_addr == 0) {
